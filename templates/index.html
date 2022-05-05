@@ -1,49 +1,117 @@
-{{define "Index"}}
+{{define "Produtos"}}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <title>Alura loja</title>
+    <title>Loja</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bg-app-black{
+            background-color: #0000008c;
+        }
+    </style>
 </head>
-<nav class="navbar navbar-light bg-light mb-4">
-    <a class="navbar-brand" href="/">Alura Loja</a>
-</nav>
-
 <body>
-    <div class="container">
-        <section class="card">
-            <div>
-                <table class="table table-striped table-hover mb-0">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Descrição</th>
-                            <th>Preço</th>
-                            <th>Quantidade</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{range .}}
-                        <tr>
-                            <td>{{.Nome}}</td>
-                            <td>{{.Descricao}}</td>
-                            <td>{{.Preco}}</td>
-                            <td>{{.Quantidade}}</td>
-                        </tr>
-                        {{end}}
-                    </tbody>
-                </table>
+    <div class="container "> 
+        <nav class="w-screen flex items-center justify-between flex-wrap bg-gray-800 p-6">
+            <div class="brand mr-10 text-white">Minha Loja</div>
+            <div class="flex items-center flex-grow">
+                <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">
+                    Home
+                </a>       
+                <a href="/" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">
+                    Produtos
+                </a>       
             </div>
-        </section>
+        </nav>
+        <div class="flex flex-wrap w-screen">
+            <div class="w-full m-6">
+                <h1 class="text-2xl font-bold text-gray-800">Produtos</h1>
+            </div>
+            <div class="w-full m-6 flex justify-around">
+                <!-- button new product -->
+                <a href="#" id="newProduct" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Novo Produto</a>
+            </div>
+            <div class="w-full flex rounded">
+                {{range .}}                
+                    <div class="card m-2 border-2 p-6 w-3/12">
+                        <div class="card-body">
+                            <h3 class="card-title mb-2">{{.Nome}}</h3>
+                            <strong class="text-purple-500 mb-6">Descrição:</strong> 
+                            <p class="mt-4">
+                                {{.Descricao}}
+                            </p>
+                            <strong class="text-purple-500 mb-6">Preço:</strong>
+                            <p class="mt-4">
+                                R$ {{.Preco}},00
+                            </p>
+                            <strong class="text-purple-500 mb-6">Quantidade:</strong>
+                            <p class="mt-4">
+                                {{.Quantidade}}
+                            </p>
+                        </div>  
+                        <div class="card-actions mt-6 flex justify">
+                            <a href="/updatePage?id={{.Id}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Editar</a>
+                            <a href="/delete?id={{.Id}}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Excluir</a>
+                        </div>  
+                    </div>
+                {{end}}
+            </div>
+        </div>
     </div>
-</body>
+    <div id="modalCreate" class="w-screen h-screen modal-box inset-0 absolute z-50 p-10 bg-app-black" style="display: none;">
+        <div class="model border-2 p-6 justify-center items-center w-4/12 rounded shadow-xl  bg-white ">
+            <div class="model-header w-full mt-6 mb-6">
+                <h1 class="text-indigo-500 font-bold font-sans p-4">Create a new Product</h1>
+            </div>
+            <div class="model-body w-full ">
+                <form action="/create" method="POST">
+                    <div class="form-group">
+                        <label for="name" class="mt-2 mb-2 block text-sm font-medium text-gray-700">Produc Name</label>
+                        <input type="text" name="name" id="name" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+                    <div class="form-group">
+                        <label for="price" class="mt-2 mb-2 block text-sm font-medium text-gray-700">Price</label>
+                        <input type="text" name="price" id="price" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity" class="mt-2 mb-2 block text-sm font-medium text-gray-700">Quantity</label>
+                        <input type="number" name="quantity" id="quantity" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="description" class="mt-2 mb-2 block text-sm font-medium text-gray-700">Description</label>
+                        <div class="mt-1">
+                            <textarea id="about" name="description" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder=" Comment ..."></textarea>
+                          </div>
+                    </div>
+                   <div class="actions pt-6 pb-6">
+                        <button type="submit" class="bg-indigo-500 text-white p-2 rounded">Save</button>
+                        <a id="btn-close" href="/" class="btn p-2 bg-red-500 text-white rounded w-2/12 mt-4">Close</a>
+                   </div>
+                </form>
+            </div>
+            <div class="model-footer w-full">
+               
+            </div>
+        </div>
+    </div>
+    <script>
+        const modalCreate = document.getElementById('modalCreate');
+        const btnClose = document.getElementById('btn-close');
+        const btnNewProduct = document.getElementById('newProduct');
 
+        btnNewProduct.addEventListener('click', () => {
+            modalCreate.style.display = 'block';
+        })
+        
+        btnClose.addEventListener('click', () => {
+            modalCreate.style.display = 'none';
+        
+        })
+    </script>
+</body>
 </html>
 {{end}}

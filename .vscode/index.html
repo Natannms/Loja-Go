@@ -1,0 +1,66 @@
+{{define "Produtos"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="container "> 
+        <nav class="w-screen flex items-center justify-between flex-wrap bg-gray-800 p-6">
+            <div class="brand mr-10 text-white">Minha Loja</div>
+            <div class="flex items-center flex-grow">
+                <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">
+                    Home
+                </a>       
+                <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">
+                    Produtos
+                </a>       
+            </div>
+        </nav>
+        <div class="flex flex-wrap w-screen">
+            <div class="w-full m-6">
+                <h1 class="text-2xl font-bold text-gray-800">Produtos</h1>
+            </div>
+            <div class="w-full m-6 flex justify-around">
+                <!-- button new product -->
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Novo Produto</button>
+                <!-- form filter product by name -->
+                <form class="flex-grow pl-2">
+                    <input type="text" class="border border-gray-500 p-2 rounded-md" placeholder="Pesquisar...">
+                </form>
+
+            </div>
+            <div class="w-full flex rounded">
+                {{range .}}                
+                    <div class="card m-2 border-2 p-6 w-3/12">
+                        <div class="card-body">
+                            <h3 class="card-title mb-2">{{.Nome}}</h3>
+                            <strong class="text-purple-500 mb-6">Descrição:</strong> 
+                            <p class="mt-4">
+                                {{.Descricao}}
+                            </p>
+                            <strong class="text-purple-500 mb-6">Preço:</strong>
+                            <p class="mt-4">
+                                {{.Preco}}
+                            </p>
+                            <strong class="text-purple-500 mb-6">Quantidade:</strong>
+                            <p class="mt-4">
+                                {{.Quantidade}}
+                            </p>
+                        </div>  
+                        <div class="card-actions mt-6 flex justify">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Editar</button>
+                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Excluir</button>
+                        </div>  
+                    </div>
+                {{end}}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{{end}}

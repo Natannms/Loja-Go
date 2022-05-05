@@ -1,0 +1,78 @@
+{{define "Update"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bg-app-black{
+            background-color: #0000008c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container "> 
+        <nav class="w-screen flex items-center justify-between flex-wrap bg-gray-800 p-6">
+            <div class="brand mr-10 text-white">Minha Loja</div>
+            <div class="flex items-center flex-grow">
+                <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">
+                    Home
+                </a>       
+                <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">
+                    Produtos
+                </a>       
+            </div>
+        </nav>
+        <div class="flex flex-wrap w-screen">
+            <div class="w-full m-6">
+                <h1 class="text-2xl font-bold text-gray-800">Produtos</h1>
+            </div>
+            <div class="w-full flex rounded">
+                {{range .}}                
+                <div class="ml-6 model border-2 p-6 justify-center items-center w-4/12 rounded shadow-xl  bg-white ">
+                    <div class="model-header w-full mt-6 mb-6">
+                        <h1 class="text-indigo-500 font-bold font-sans p-4">Update Product</h1>
+                    </div>
+                    <div class="model-body w-full ">
+                        <form action="/update" method="POST">
+                            <input type="hidden" name="id" value="{{.Id}}">
+                            <div class="form-group">
+                                <label for="name" class="mt-2 mb-2 block text-sm font-medium text-gray-700">Produc Name</label>
+                                <input value="{{.Nome}}" type="text" name="name" id="name" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                            <div class="form-group">
+                                <label for="price" class="mt-2 mb-2 block text-sm font-medium text-gray-700">Price</label>
+                                <input value="{{.Preco}}" type="text" name="price" id="price" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                            <div class="form-group">
+                                <label for="quantity" class="mt-2 mb-2 block text-sm font-medium text-gray-700">Quantity</label>
+                                <input value="{{.Quantidade}}" type="number" name="quantity" id="quantity" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="description" class="mt-2 mb-2 block text-sm font-medium text-gray-700">Description</label>
+                                <div class="mt-1">
+                                    <textarea id="about" name="description" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="">{{.Descricao}}</textarea>
+                                  </div>
+                            </div>
+                           <div class="actions pt-6 pb-6">
+                                <button type="submit" class="bg-indigo-500 text-white p-2 rounded">Update</button>
+                                <a id="btn-close" href="/" class="btn p-2 bg-red-500 text-white rounded w-2/12 mt-4">Close</a>
+                           </div>
+                        </form>
+                    </div>
+                    <div class="model-footer w-full">
+                       
+                    </div>
+                </div>
+                {{end}}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+{{end}}
